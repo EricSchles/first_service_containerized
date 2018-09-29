@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  title: Hello World Example API
+  version: "0.1"
+  description: a hello world api example that returns a single element.
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /search:
+    get:
+      tags: [Item]
+      operationId: app.get_items
+      summary: Get all items
+      responses:
+        200:
+          description: Return items
+          schema:
+            $ref: '#/definitions/Item'
+        404:
+          description: Item does not exist
+
+definitions:
+  Item:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+        example: "123"
+        readOnly: true
+      name:
+        type: string
+        description: Item's name
+        example: "name"
+        readOnly: true
+
+
+
