@@ -237,5 +237,21 @@ Then you can compose the services with docker-compose.yml.
 
 I'm going to make the point again, the volume specified in our docker-compose.yml is the same as the volume specified in our Dockerfile.  It's important to keep these consistent!
 
+
+Finally, to run the docker-compose file simply run:
+
+`docker-compose up -d`
+
+to shut it down:
+
+`docker-compose down`
+
+To see all running processes run:
+
+`docker ps`
+
+or
+
+`docker ps -a`
 That's all for now!
 
