@@ -212,3 +212,30 @@ This will expose the server as running on port 8080, despite the fact that we ac
 If you are interested in more on docker, please check out:  https://github.com/EricSchles/devops_notes/blob/master/learning_docker.md
 
 I worked on the above notes with instruction from [Michelle Cone](https://twitter.com/michellemcone).
+
+## docker-compose
+
+Now that we understand the basics of docker, we can actually simulate a real distributed architecture locally.  This is the power of docker compose - composing multiple docker images in one file via `docker-compose.yml`.  What this does is gives you the ability to specify multiple custom docker files, one per service **OR** download multiple off the shelf services from either docker hub or another registry.  In this application we make use of Elastic Search and RabbitMQ.  Both require their own networking, because they are in affect self contained applications.  Now you can have all of these services seamlessly run together with a simple and straight forward specification file.
+
+You need only specify the base image, environment variables, and ports and then you are off to the races.  The docker-compose.yml file in the repo is fairly straight forward for elasticsearch and rabbitMQ.  Where things get interesting is with a custom Dockerfile.
+
+Notice that we need to specify the build directory, the volumes and our dependency structure with `depends_on`.  This means that we can have a "main" image that instruments and works in tandem with the other images.
+
+We can name our dockerfile whatever we might like, however it's probably best to seperate out different services into different folders and keep the Dockerfiles in the root directory of the application.  Then you can reference the individual folders and name the docker files accordingly.  So if you have three services, put them in:
+
+```
+/first
+/second
+/third
+```
+
+Then instrument your docker files as such:
+
+`Dockerfile.first`, `Dockerfile.second`, `Dockerfile.third`.
+
+Then you can compose the services with docker-compose.yml.
+
+I'm going to make the point again, the volume specified in our docker-compose.yml is the same as the volume specified in our Dockerfile.  It's important to keep these consistent!
+
+That's all for now!
+
